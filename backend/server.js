@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
     res.send('Brawl Stars API Backend is running...');
 });
 
-app.get('/user', userRoute);
+app.use('/user', userRoute);
 app.use('/brawlstars', brawlStarsRoute);
 
 app.listen(PORT, () => {

@@ -34,4 +34,23 @@ router.get('/player/:tag', async (req, res) => {
     }
 });
 
+router.get('/brawlers', async (req, res) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/brawlers`, {
+            headers: {
+                'Authorization': `Bearer ${process.env.BRAWL_STARS_API_KEY}`,
+                'Accept': 'application/json'
+            }
+        });
+
+        res.json(response.data);
+    } catch (error) {
+        console.error('Erreur Brawl Stars API (Brawlers):', error.response?.data || error.message);
+        res.status(error.response?.status || 500).json({
+            message: 'Erreur lors de la récupération des personnages Brawl Stars',
+            details: error.response?.data
+        });
+    }
+});
+
 export default router;

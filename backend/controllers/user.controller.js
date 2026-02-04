@@ -3,6 +3,7 @@ import User from "../models/user.model.js"
 import userValidation from "../validations/user.validation.js"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import mongoose from 'mongoose'
 
 const register = async(req,res)=>{
     try {
@@ -46,7 +47,8 @@ const login = async(req, res) => {
         }
         res.status(200).json({
             message: user.email+" is connected",
-            token: jwt.sign({ id: user._id, email:  user.email }, process.env.SECRET_KEY, { expiresIn: "12h" })
+            token: jwt.sign({ id: user._id, email:  user.email }, process.env.SECRET_KEY, { expiresIn: "12h" }),
+            user: { _id: user._id, email: user.email }
         })
     } catch (error) {
         console.log(error)
@@ -66,6 +68,9 @@ const getAllUsers = async(req, res) => {
 
 const getUserById = async(req,res) => {
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: "Invalid ID" });
+        }
         const user = await User.findById(req.params.id)
         if(!user){
             return res.status(404).json({message: "user doesn't exist"})
@@ -79,6 +84,9 @@ const getUserById = async(req,res) => {
 
 const updateUser = async(req,res) => {
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: "Invalid ID" });
+        }
         const {body} = req
         if(!body){
             return res.status(400).json({message: "No data in the request"})
@@ -101,6 +109,9 @@ const updateUser = async(req,res) => {
 
 const deleteUser = async(req, res) => {
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: "Invalid ID" });
+        }
         const user = await User.findByIdAndDelete(req.params.id)
         if(!user){
             return res.status(404).json({message: "user doesn't exist"})

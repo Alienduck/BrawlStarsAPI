@@ -1,0 +1,372 @@
+.player-search {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.search-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-title {
+  font-family: "Lilita One", cursive;
+  font-size: 48px;
+  background: linear-gradient(135deg, #9b59b6 0%, #e91e63 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.page-subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.search-container {
+  margin-bottom: 40px;
+}
+
+.search-type-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: "Barlow", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.tab.active {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+}
+
+.tab .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.search-form {
+  margin-bottom: 20px;
+}
+
+.search-input-group {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 20px;
+  width: 24px;
+  height: 24px;
+  stroke: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+.search-input {
+  flex: 1;
+  padding: 16px 20px 16px 56px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  color: white;
+  font-size: 18px;
+  font-family: "Barlow", sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--bs-cyan);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.loading-container {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+/* Player Results */
+.player-results {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 32px;
+}
+
+.player-avatar {
+  flex-shrink: 0;
+}
+
+.avatar-circle {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(233, 30, 99, 0.5);
+}
+
+.avatar-icon {
+  width: 100%;
+  height: 100%;
+  stroke: white;
+  stroke-width: 2;
+}
+
+.player-info {
+  flex: 1;
+}
+
+.player-name {
+  font-family: "Lilita One", cursive;
+  font-size: 36px;
+  color: white;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.player-tag {
+  font-size: 18px;
+  color: var(--bs-cyan);
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-family: "Barlow", sans-serif;
+}
+
+.player-club {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.player-club .icon {
+  width: 18px;
+  height: 18px;
+  stroke: var(--bs-yellow);
+}
+
+.no-club {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  min-height: 140px;
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  stroke: var(--bs-cyan);
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.5));
+}
+
+/* Brawlers Section */
+.brawlers-section {
+  padding: 32px;
+}
+
+.section-title {
+  font-family: "Lilita One", cursive;
+  font-size: 28px;
+  color: var(--bs-cyan);
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.brawlers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.brawler-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.brawler-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.brawler-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.brawler-info {
+  margin-bottom: 0;
+}
+
+.brawler-name {
+  font-family: "Lilita One", cursive;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.brawler-icon {
+  width: 60px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.brawler-power {
+  font-size: 14px;
+  color: var(--bs-yellow);
+  font-weight: 700;
+}
+
+.brawler-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brawler-trophies {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
+}
+
+.mini-icon {
+  width: 16px;
+  height: 16px;
+  stroke: var(--bs-yellow);
+}
+
+.brawler-rank {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 36px;
+  }
+
+  .search-input-group {
+    flex-direction: column;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-input-group .btn {
+    width: 100%;
+  }
+
+  .player-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .player-name {
+    font-size: 28px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .brawlers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .player-search {
+    padding: 20px 15px;
+  }
+
+  .page-title {
+    font-size: 32px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-type-tabs {
+    flex-direction: column;
+  }
+
+  .tab {
+    width: 100%;
+    justify-content: center;
+  }
+}

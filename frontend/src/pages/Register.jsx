@@ -2,7 +2,8 @@ import { useState } from 'react';
 import './Auth.css';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000';
+const API_URL = process.env.VITE_API_URL || 'http://localhost:5000';
+
 
 function Register({ onNavigate }) {
   const [email, setEmail] = useState('');

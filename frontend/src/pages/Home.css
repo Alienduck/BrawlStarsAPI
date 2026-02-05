@@ -26,10 +26,10 @@
 }
 
 .hero-title-main {
-  font-family: 'Lilita One', cursive;
+  font-family: "Lilita One", cursive;
   font-size: 72px;
   line-height: 1;
-  background: linear-gradient(135deg, #FFD700 0%, #FF6B35 50%, #E91E63 100%);
+  background: linear-gradient(135deg, #ffd700 0%, #ff6b35 50%, #e91e63 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -38,7 +38,7 @@
 }
 
 .hero-title-sub {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
   font-size: 24px;
   font-weight: 600;
   color: var(--bs-cyan);
@@ -60,8 +60,12 @@
 }
 
 .btn-lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
   padding: 16px 40px;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 /* Hero Visual */
@@ -95,7 +99,7 @@
 }
 
 .floating-card .feature-text {
-  font-family: 'Lilita One', cursive;
+  font-family: "Lilita One", cursive;
   font-size: 20px;
   color: white;
   text-transform: uppercase;
@@ -121,7 +125,8 @@
 }
 
 @keyframes float-up-down {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -135,11 +140,11 @@
 }
 
 .section-title {
-  font-family: 'Lilita One', cursive;
+  font-family: "Lilita One", cursive;
   font-size: 48px;
   text-align: center;
   margin-bottom: 60px;
-  background: linear-gradient(135deg, #9B59B6 0%, #E91E63 100%);
+  background: linear-gradient(135deg, #9b59b6 0%, #e91e63 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -183,7 +188,7 @@
 }
 
 .feature-title {
-  font-family: 'Lilita One', cursive;
+  font-family: "Lilita One", cursive;
   font-size: 24px;
   color: var(--bs-cyan);
   margin-bottom: 12px;
@@ -211,10 +216,10 @@
 }
 
 .cta-title {
-  font-family: 'Lilita One', cursive;
+  font-family: "Lilita One", cursive;
   font-size: 42px;
   margin-bottom: 16px;
-  background: linear-gradient(135deg, #FFD700 0%, #FF6B35 100%);
+  background: linear-gradient(135deg, #ffd700 0%, #ff6b35 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

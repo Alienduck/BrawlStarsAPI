@@ -13,9 +13,15 @@ function Home({ onNavigate, user }) {
             Track your stats, analyze your gameplay, and dominate the arena with real-time data from the official Brawl Stars API.
           </p>
           <div className="hero-actions">
-            <button className="btn btn-primary btn-lg" onClick={() => onNavigate('register')}>
-              Get Started
-            </button>
+            {user ? (
+              <button className="btn btn-primary btn-lg" onClick={() => onNavigate('dashboard')}>
+                Go to Dashboard
+              </button>
+            ) : (
+              <button className="btn btn-primary btn-lg" onClick={() => onNavigate('register')}>
+                Get Started
+              </button>
+            )}
             <button className="btn btn-ghost btn-lg" onClick={() => onNavigate('search')}>
               <svg className="icon" viewBox="0 0 24 24">
                 <circle cx="11" cy="11" r="8" />

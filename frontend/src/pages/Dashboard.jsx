@@ -125,7 +125,7 @@ function Dashboard({ user, onNavigate }) {
                       </div>
                       <div className="quick-info">
                         <h3 className="quick-name">{player.name}</h3>
-                        <p className="quick-tag">#{player.tag}</p>
+                        <p className="quick-tag">{player.tag}</p>
                       </div>
                     </div>
                     <div className="quick-stats">
@@ -161,7 +161,7 @@ function Dashboard({ user, onNavigate }) {
                 Saved Clubs
               </h2>
               <div className="clubs-grid">
-                {/* Club cards would go here */}
+                {/* TODO: Render saved clubs */}
               </div>
             </section>
           )}

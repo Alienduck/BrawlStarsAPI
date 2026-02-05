@@ -4,12 +4,15 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5000';
 
-function Profile({ user, onNavigate, onLogout }) {
+function Profile({ user, onNavigate, onLogout, onUpdateUser }) {
   const [userData, setUserData] = useState(null);
   const [playerTags, setPlayerTags] = useState([]);
   const [clubTags, setClubTags] = useState([]);
   const [newPlayerTag, setNewPlayerTag] = useState('');
   const [newClubTag, setNewClubTag] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
@@ -38,6 +41,7 @@ function Profile({ user, onNavigate, onLogout }) {
       setUserData(data);
       setPlayerTags(data.playerTags || []);
       setClubTags(data.clubTags || []);
+      setEmail(data.email || '');
     } catch (err) {
       console.error('Error fetching user data:', err);
       setMessage({ type: 'error', text: 'Failed to load user data' });
@@ -78,19 +82,35 @@ function Profile({ user, onNavigate, onLogout }) {
     setSaving(true);
     setMessage({ type: '', text: '' });
 
+    if (password && password !== confirmPassword) {
+      setMessage({ type: 'error', text: 'Passwords do not match' });
+      setSaving(false);
+      return;
+    }
+
     try {
       const token = localStorage.getItem('token');
       const userId = user?._id;
 
-      await axios.put(`${API_URL}/user/${userId}`, {
+      const updatePayload = {
+        email,
         playerTags,
         clubTags
-      }, {
+      };
+
+      if (password) {
+        updatePayload.password = password;
+      }
+
+      const response = await axios.put(`${API_URL}/user/${userId}`, updatePayload, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
 
+      onUpdateUser(response.data);
+      setPassword('');
+      setConfirmPassword('');
       setMessage({ type: 'success', text: 'Settings saved successfully!' });
       setTimeout(() => setMessage({ type: '', text: '' }), 3000);
     } catch (err) {
@@ -99,6 +119,25 @@ function Profile({ user, onNavigate, onLogout }) {
       setMessage({ type: 'error', text: errorMsg });
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!window.confirm('Are you sure you want to delete your account? This action is irreversible.')) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      const userId = user?._id;
+
+      await axios.delete(`${API_URL}/user/${userId}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      onLogout();
+    } catch (err) {
+      console.error('Error deleting account:', err);
+      setMessage({ type: 'error', text: 'Failed to delete account' });
     }
   };
 
@@ -161,13 +200,54 @@ function Profile({ user, onNavigate, onLogout }) {
           <div className="info-grid">
             <div className="info-item">
               <label className="info-label">Email</label>
-              <div className="info-value">{user?.email || 'N/A'}</div>
+              <input 
+                type="email" 
+                className="tag-input" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
+              />
             </div>
             <div className="info-item">
               <label className="info-label">Account Created</label>
               <div className="info-value">
                 {userData?.createdAt ? new Date(userData.createdAt).toLocaleDateString() : 'N/A'}
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="profile-section glass-card slide-in-left" style={{ animationDelay: '0.05s' }}>
+          <div className="section-header">
+            <svg className="section-icon" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <div>
+              <h2 className="section-title">Security</h2>
+              <p className="section-description">Update your password</p>
+            </div>
+          </div>
+
+          <div className="info-grid">
+            <div className="info-item">
+              <label className="info-label">New Password</label>
+              <input 
+                type="password" 
+                className="tag-input" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Leave blank to keep current"
+              />
+            </div>
+            <div className="info-item">
+              <label className="info-label">Confirm New Password</label>
+              <input 
+                type="password" 
+                className="tag-input" 
+                value={confirmPassword} 
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm your new password"
+              />
             </div>
           </div>
         </div>
@@ -297,14 +377,25 @@ function Profile({ user, onNavigate, onLogout }) {
       <div className="danger-zone glass-card fade-in" style={{ animationDelay: '0.4s' }}>
         <h3 className="danger-title">Danger Zone</h3>
         <p className="danger-description">Irreversible actions for your account</p>
-        <button className="btn btn-danger" onClick={onLogout}>
-          <svg className="icon" viewBox="0 0 24 24">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-            <polyline points="16 17 21 12 16 7" />
-            <line x1="21" y1="12" x2="9" y2="12" />
-          </svg>
-          Logout
-        </button>
+        <div className="danger-actions">
+          <button className="btn btn-danger" onClick={handleDeleteAccount}>
+            <svg className="icon" viewBox="0 0 24 24">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+              <line x1="10" y1="11" x2="10" y2="17" />
+              <line x1="14" y1="11" x2="14" y2="17" />
+            </svg>
+            Delete Account
+          </button>
+          <button className="btn btn-ghost" onClick={onLogout}>
+            <svg className="icon" viewBox="0 0 24 24">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );

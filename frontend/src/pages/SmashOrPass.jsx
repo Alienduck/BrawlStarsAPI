@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import './SmashOrPass.css';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000';
+const API_URL = process.env.VITE_API_URL || 'http://localhost:5000';
+
 
 export default function SmashOrPass() {
     const [brawlers, setBrawlers] = useState([]);

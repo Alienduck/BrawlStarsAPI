@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import './PlayerSearch.css';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000';
+const API_URL = process.env.VITE_API_URL || 'http://localhost:5000';
+
 
 function PlayerSearch({ onNavigate, searchData }) {
   const [searchType, setSearchType] = useState('player');

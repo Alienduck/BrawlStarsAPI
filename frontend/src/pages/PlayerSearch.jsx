@@ -36,13 +36,13 @@ function PlayerSearch({ onNavigate, searchData }) {
   };
 
   const handleSearch = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (!searchTag.trim()) return;
     performSearch(searchTag, searchType);
   };
 
   useEffect(() => {
-    if (searchData?.tag) {
+    if (searchData && searchData.tag) {
       setSearchTag(searchData.tag);
       setSearchType(searchData.type || 'player');
       performSearch(searchData.tag, searchData.type || 'player');

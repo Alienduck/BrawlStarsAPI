@@ -7,7 +7,7 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
+      if (window.scrollY > 100) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -23,8 +23,8 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
       <div className="header-container">
         <div className="logo" onClick={() => { onNavigate('home'); setMenuOpen(false); }}>
           <svg className="logo-icon" viewBox="0 0 24 24">
-            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" 
-                  fill="url(#logo-gradient)" />
+            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"
+              fill="url(#logo-gradient)" />
             <defs>
               <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#9B59B6" />
@@ -36,7 +36,7 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
         </div>
 
         <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
-          <button 
+          <button
             className={`nav-link ${currentPage === 'home' ? 'active' : ''}`}
             onClick={() => { onNavigate('home'); setMenuOpen(false); }}
           >
@@ -47,7 +47,7 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
             <span>Home</span>
           </button>
 
-          <button 
+          <button
             className={`nav-link ${currentPage === 'search' ? 'active' : ''}`}
             onClick={() => { onNavigate('search'); setMenuOpen(false); }}
           >
@@ -60,7 +60,7 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
 
           {user ? (
             <>
-              <button 
+              <button
                 className={`nav-link ${currentPage === 'dashboard' ? 'active' : ''}`}
                 onClick={() => { onNavigate('dashboard'); setMenuOpen(false); }}
               >
@@ -73,7 +73,7 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
                 <span>Dashboard</span>
               </button>
 
-              <button 
+              <button
                 className={`nav-link ${currentPage === 'profile' ? 'active' : ''}`}
                 onClick={() => { onNavigate('profile'); setMenuOpen(false); }}
               >
@@ -82,6 +82,15 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
                   <circle cx="12" cy="7" r="4" />
                 </svg>
                 <span>Profile</span>
+              </button>
+
+              <button className={`nav-link ${currentPage === 'smashOrPass' ? 'active' : ''}`}
+                onClick={() => { onNavigate('smashOrPass'); setMenuOpen(false); }}
+              >
+                <svg className="icon" viewBox="0 0 24 24">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+                <span>Smash or Pass</span>
               </button>
 
               <button className="btn btn-ghost btn-sm" onClick={onLogout}>
@@ -95,13 +104,13 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
             </>
           ) : (
             <>
-              <button 
+              <button
                 className="btn btn-ghost btn-sm"
                 onClick={() => { onNavigate('login'); setMenuOpen(false); }}
               >
                 Login
               </button>
-              <button 
+              <button
                 className="btn btn-primary btn-sm"
                 onClick={() => { onNavigate('register'); setMenuOpen(false); }}
               >
@@ -111,7 +120,7 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
           )}
         </nav>
 
-        <button 
+        <button
           className={`menu-toggle ${menuOpen ? 'active' : ''}`}
           onClick={() => setMenuOpen(!menuOpen)}
         >

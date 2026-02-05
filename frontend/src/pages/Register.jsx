@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Auth.css';
+import axios from 'axios';
 
 const API_URL = 'http://localhost:5000';
 
@@ -29,31 +30,20 @@ function Register({ onNavigate }) {
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_URL}/user/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          email, 
-          password,
-          playerTags: [],
-          clubTags: []
-        }),
+      await axios.post(`${API_URL}/user/register`, {
+        email,
+        password,
+        playerTags: [],
+        clubTags: []
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccess(true);
-        setTimeout(() => {
-          onNavigate('login');
-        }, 2000);
-      } else {
-        setError(data.message || 'Registration failed');
-      }
+      setSuccess(true);
+      setTimeout(() => {
+        onNavigate('login');
+      }, 2000);
     } catch (err) {
-      setError('Connection error. Please try again.');
+      const errorMessage = err.response?.data?.message || err.response?.data || 'Registration failed';
+      setError(errorMessage);
       console.error('Registration error:', err);
     } finally {
       setLoading(false);

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './PlayerSearch.css';
 import axios from 'axios';
 
 const API_URL = 'http://localhost:5000';
 
-function PlayerSearch({ onNavigate }) {
+function PlayerSearch({ onNavigate, searchData }) {
   const [searchType, setSearchType] = useState('player');
   const [searchTag, setSearchTag] = useState('');
   const [searchResult, setSearchResult] = useState(null);
@@ -17,17 +17,14 @@ function PlayerSearch({ onNavigate }) {
     setError('');
   };
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!searchTag.trim()) return;
-
+  const performSearch = async (tag, type) => {
     setLoading(true);
     setError('');
     setSearchResult(null);
 
     try {
-      const cleanTag = searchTag.replace('#', '').trim();
-      const response = await axios.get(`${API_URL}/brawlstars/${searchType}/${cleanTag}`);
+      const cleanTag = tag.replace('#', '').trim();
+      const response = await axios.get(`${API_URL}/brawlstars/${type}/${cleanTag}`);
       setSearchResult(response.data);
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Search failed';
@@ -37,6 +34,20 @@ function PlayerSearch({ onNavigate }) {
       setLoading(false);
     }
   };
+
+  const handleSearch = (e) => {
+    if (e) e.preventDefault();
+    if (!searchTag.trim()) return;
+    performSearch(searchTag, searchType);
+  };
+
+  useEffect(() => {
+    if (searchData && searchData.tag) {
+      setSearchTag(searchData.tag);
+      setSearchType(searchData.type || 'player');
+      performSearch(searchData.tag, searchData.type || 'player');
+    }
+  }, [searchData]);
 
   return (
     <div className="player-search">
@@ -126,7 +137,7 @@ function PlayerSearch({ onNavigate }) {
                 </div>
                 <div className="player-info">
                   <h2 className="player-name">{searchResult.name}</h2>
-                  <p className="player-tag">#{searchResult.tag}</p>
+                  <p className="player-tag">{searchResult.tag}</p>
                   <div className="player-club">
                     {searchResult.club ? (
                       <>

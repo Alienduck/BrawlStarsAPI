@@ -12,6 +12,12 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [navigationParams, setNavigationParams] = useState(null);
+
+  const handleNavigate = (page, params = null) => {
+    setCurrentPage(page);
+    setNavigationParams(params);
+  };
 
   useEffect(() => {
     if (token) {
@@ -27,7 +33,7 @@ function App() {
     localStorage.setItem('token', authToken);
     console.log(userData);
     localStorage.setItem('user', JSON.stringify(userData));
-    setCurrentPage('dashboard');
+    handleNavigate('dashboard');
   };
 
   const handleLogout = () => {
@@ -35,25 +41,25 @@ function App() {
     setToken(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    setCurrentPage('home');
+    handleNavigate('home');
   };
 
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <Home onNavigate={setCurrentPage} user={user} />;
+        return <Home onNavigate={handleNavigate} user={user} />;
       case 'dashboard':
-        return <Dashboard user={user} onNavigate={setCurrentPage} />;
+        return <Dashboard user={user} onNavigate={handleNavigate} />;
       case 'login':
-        return <Login onLogin={handleLogin} onNavigate={setCurrentPage} />;
+        return <Login onLogin={handleLogin} onNavigate={handleNavigate} />;
       case 'register':
-        return <Register onNavigate={setCurrentPage} />;
+        return <Register onNavigate={handleNavigate} />;
       case 'search':
-        return <PlayerSearch onNavigate={setCurrentPage} />;
+        return <PlayerSearch onNavigate={handleNavigate} searchData={navigationParams} />;
       case 'profile':
-        return <Profile user={user} onNavigate={setCurrentPage} onLogout={handleLogout} />;
+        return <Profile user={user} onNavigate={handleNavigate} onLogout={handleLogout} />;
       default:
-        return <Home onNavigate={setCurrentPage} />;
+        return <Home onNavigate={handleNavigate} />;
     }
   };
 
@@ -63,7 +69,7 @@ function App() {
       <div className="gradient-orbs"></div>
       <Header 
         user={user} 
-        onNavigate={setCurrentPage} 
+        onNavigate={handleNavigate} 
         currentPage={currentPage}
         onLogout={handleLogout}
       />

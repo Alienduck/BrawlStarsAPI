@@ -40,8 +40,7 @@ function Dashboard({ user, onNavigate }) {
           setSavedPlayers(players.filter(p => p !== null));
         }
 
-        // Similar for clubs if you implement club endpoint
-        setSavedClubs([]); // Assuming club data fetching will be added later
+        setSavedClubs([]);
     } catch (err) {
       console.error('Error fetching saved data:', err);
     } finally {
@@ -111,24 +110,27 @@ function Dashboard({ user, onNavigate }) {
               </h2>
               <div className="players-grid">
                 {savedPlayers.map((player, index) => (
-                  <div key={index} className="player-quick-card glass-card slide-in-left" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <button 
+                    key={index} 
+                    className="player-quick-card glass-card slide-in-left" 
+                    style={{ animationDelay: `${index * 0.1}s`, cursor: 'pointer' }} 
+                    onClick={() => onNavigate('search', { 
+                      tag: player.tag, 
+                      type: 'player' 
+                    })}
+                  >
                     <div className="quick-card-header">
                       <div className="quick-avatar">
-                        <svg className="icon" viewBox="0 0 24 24">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
+                        <img src={`https://media.brawltime.ninja/avatars/${player.icon.id}.png?size=400`} alt="icon" className="avatar-icon"/>
                       </div>
                       <div className="quick-info">
                         <h3 className="quick-name">{player.name}</h3>
-                        <p className="quick-tag">#{player.tag}</p>
+                        <p className="quick-tag">{player.tag}</p>
                       </div>
                     </div>
                     <div className="quick-stats">
                       <div className="quick-stat">
-                        <svg className="mini-icon" viewBox="0 0 24 24">
-                          <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-                        </svg>
+                        <img src="https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoic3VwZXJjZWxsXC9maWxlXC9wcjFDdm5aTTRQS3dtUmtKVkRUUi5wbmcifQ:supercell:0GeZ96BpVtULTS3Y9IqCpCbvcughkEaPZb_AqZjT92s?width=2400" alt="trophies" className="mini-icon" style={ {width: '20px', height: '16px'}}/>
                         <span className="quick-stat-value">{player.trophies.toLocaleString()}</span>
                         <span className="quick-stat-label">Trophies</span>
                       </div>
@@ -141,7 +143,7 @@ function Dashboard({ user, onNavigate }) {
                         <span className="quick-stat-label">3v3 Wins</span>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             </section>
@@ -159,7 +161,7 @@ function Dashboard({ user, onNavigate }) {
                 Saved Clubs
               </h2>
               <div className="clubs-grid">
-                {/* Club cards would go here */}
+                {/* TODO: Render saved clubs */}
               </div>
             </section>
           )}

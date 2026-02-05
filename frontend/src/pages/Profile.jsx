@@ -190,7 +190,7 @@ function Profile({ user, onNavigate, onLogout }) {
               placeholder="Enter player tag (e.g., #2PP)"
               value={newPlayerTag}
               onChange={(e) => setNewPlayerTag(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleAddPlayerTag()}
+              onKeyDown={(e) => e.key === 'Enter' && handleAddPlayerTag()}
             />
             <button className="btn btn-secondary" onClick={handleAddPlayerTag}>
               <svg className="icon" viewBox="0 0 24 24">

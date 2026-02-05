@@ -34,6 +34,29 @@ router.get('/player/:tag', async (req, res) => {
     }
 });
 
+router.get('/club/:tag', async (req, res) => {
+    try {
+        const { tag } = req.params;
+        const formattedTag = tag.startsWith('#') ? encodeURIComponent(tag) : `%23${tag}`;
+
+        const response = await axios.get(`${BASE_URL}/clubs/${formattedTag}`, {
+            headers: {
+                'Authorization': `Bearer ${process.env.BRAWL_STARS_API_KEY}`,
+                'Accept': 'application/json'
+            }
+        });
+
+        res.json(response.data);
+    } catch (error) {
+        console.error('Erreur Brawl Stars API (Club):', error.response?.data || error.message);
+        res.status(error.response?.status || 500).json({
+            message: 'Erreur lors de la récupération des données du club Brawl Stars',
+            details: error.response?.data
+        });
+    }
+});
+
+
 router.get('/brawlers', async (req, res) => {
     try {
         const response = await axios.get(`${BASE_URL}/brawlers`, {

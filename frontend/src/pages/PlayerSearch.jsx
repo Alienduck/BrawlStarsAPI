@@ -137,7 +137,7 @@ function PlayerSearch({ onNavigate, searchData }) {
                 </div>
                 <div className="player-info">
                   <h2 className="player-name">{searchResult.name}</h2>
-                  <p className="player-tag">#{searchResult.tag}</p>
+                  <p className="player-tag">{searchResult.tag}</p>
                   <div className="player-club">
                     {searchResult.club ? (
                       <>

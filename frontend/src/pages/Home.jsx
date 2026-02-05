@@ -23,11 +23,11 @@ function Home({ onNavigate, user }) {
               </button>
             )}
             <button className="btn btn-ghost btn-lg" onClick={() => onNavigate('search')}>
-              <svg className="icon" viewBox="0 0 24 24">
+              Search Players
+              <svg className="icon" viewBox="0 0 24 24" style={ { margin: "5px" }}>
                 <circle cx="11" cy="11" r="8" />
                 <path d="m21 21-4.35-4.35" />
               </svg>
-              Search Players
             </button>
           </div>
         </div>

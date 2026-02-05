@@ -44,6 +44,11 @@ function App() {
     handleNavigate('home');
   };
 
+  const handleUpdateUser = (updatedUser) => {
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+  };
+
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
@@ -57,7 +62,7 @@ function App() {
       case 'search':
         return <PlayerSearch onNavigate={handleNavigate} searchData={navigationParams} />;
       case 'profile':
-        return <Profile user={user} onNavigate={handleNavigate} onLogout={handleLogout} />;
+        return <Profile user={user} onNavigate={handleNavigate} onLogout={handleLogout} onUpdateUser={handleUpdateUser} />;
       default:
         return <Home onNavigate={handleNavigate} />;
     }

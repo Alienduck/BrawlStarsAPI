@@ -7,7 +7,7 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
   return (
     <header className="header">
       <div className="header-container">
-        <div className="logo" onClick={() => onNavigate('home')}>
+        <div className="logo" onClick={() => { onNavigate('home'); setMenuOpen(false); }}>
           <svg className="logo-icon" viewBox="0 0 24 24">
             <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" 
                   fill="url(#logo-gradient)" />
@@ -98,7 +98,7 @@ function Header({ user, onNavigate, currentPage, onLogout }) {
         </nav>
 
         <button 
-          className="menu-toggle"
+          className={`menu-toggle ${menuOpen ? 'active' : ''}`}
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <span></span>

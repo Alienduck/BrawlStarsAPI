@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import PlayerSearch from './pages/PlayerSearch';
 import Profile from './pages/Profile';
+import SmashOrPass from './pages/SmashOrPass';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -63,6 +64,8 @@ function App() {
         return <PlayerSearch onNavigate={handleNavigate} searchData={navigationParams} />;
       case 'profile':
         return <Profile user={user} onNavigate={handleNavigate} onLogout={handleLogout} onUpdateUser={handleUpdateUser} />;
+      case 'smashOrPass':
+        return <SmashOrPass onNavigate={handleNavigate} />;
       default:
         return <Home onNavigate={handleNavigate} />;
     }

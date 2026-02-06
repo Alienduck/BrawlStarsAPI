@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Dashboard.css';
-import axios from 'axios';
-
-const API_URL = process.env.VITE_API_URL || 'http://localhost:5000';
+import api from '../services/axios';
 
 function Dashboard({ user, onNavigate }) {
   const [savedPlayers, setSavedPlayers] = useState([]);
@@ -18,21 +16,15 @@ function Dashboard({ user, onNavigate }) {
   const fetchSavedData = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('token');
-      
       // Fetch user data to get saved tags using axios
-      const userResponse = await axios.get(`${API_URL}/user/${user._id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      const userResponse = await api.get(`/user/${user._id}`);
 
       const userData = userResponse.data;
         
       // Fetch player data for each saved player tag
       if (userData.playerTags && userData.playerTags.length > 0) {
         const playerPromises = userData.playerTags.map(tag =>
-          axios.get(`${API_URL}/brawlstars/player/${tag.replace('#', '')}`)
+          api.get(`/brawlstars/player/${tag.replace('#', '')}`)
               .then(res => res.data)
               .catch(() => null)
           );

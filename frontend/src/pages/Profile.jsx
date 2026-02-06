@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Profile.css';
-import axios from 'axios';
-
-const API_URL = process.env.VITE_API_URL || 'http://localhost:5000';
-
+import api from '../services/axios';
 
 function Profile({ user, onNavigate, onLogout, onUpdateUser }) {
   const [userData, setUserData] = useState(null);
@@ -26,18 +23,13 @@ function Profile({ user, onNavigate, onLogout, onUpdateUser }) {
 
   const fetchUserData = async () => {
     try {
-      const token = localStorage.getItem('token');
       const userId = user?._id;
       
       if (!userId) {
         return;
       }
 
-      const response = await axios.get(`${API_URL}/user/${userId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      const response = await api.get(`/user/${userId}`);
       const data = response.data;
       setUserData(data);
       setPlayerTags(data.playerTags || []);
@@ -90,7 +82,6 @@ function Profile({ user, onNavigate, onLogout, onUpdateUser }) {
     }
 
     try {
-      const token = localStorage.getItem('token');
       const userId = user?._id;
 
       const updatePayload = {
@@ -103,11 +94,7 @@ function Profile({ user, onNavigate, onLogout, onUpdateUser }) {
         updatePayload.password = password;
       }
 
-      const response = await axios.put(`${API_URL}/user/${userId}`, updatePayload, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      const response = await api.put(`/user/${userId}`, updatePayload);
 
       onUpdateUser(response.data);
       setPassword('');
@@ -129,12 +116,9 @@ function Profile({ user, onNavigate, onLogout, onUpdateUser }) {
     }
 
     try {
-      const token = localStorage.getItem('token');
       const userId = user?._id;
 
-      await axios.delete(`${API_URL}/user/${userId}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+      await api.delete(`/user/${userId}`);
       onLogout();
     } catch (err) {
       console.error('Error deleting account:', err);

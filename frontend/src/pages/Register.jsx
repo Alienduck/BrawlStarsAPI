@@ -1,9 +1,6 @@
 import { useState } from 'react';
+import api from '../services/axios';
 import './Auth.css';
-import axios from 'axios';
-
-const API_URL = process.env.VITE_API_URL || 'http://localhost:5000';
-
 
 function Register({ onNavigate }) {
   const [email, setEmail] = useState('');
@@ -31,7 +28,7 @@ function Register({ onNavigate }) {
     setLoading(true);
 
     try {
-      await axios.post(`${API_URL}/user/register`, {
+      await api.post(`/user/register`, {
         email,
         password,
         playerTags: [],

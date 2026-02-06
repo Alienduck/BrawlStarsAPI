@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
+import api from '../services/axios';
 import './PlayerSearch.css';
-import axios from 'axios';
-
-const API_URL = process.env.VITE_API_URL || 'http://localhost:5000';
-
 
 function PlayerSearch({ onNavigate, searchData }) {
   const [searchType, setSearchType] = useState('player');
@@ -25,7 +22,7 @@ function PlayerSearch({ onNavigate, searchData }) {
 
     try {
       const cleanTag = tag.replace('#', '').trim();
-      const response = await axios.get(`${API_URL}/brawlstars/${type}/${cleanTag}`);
+      const response = await api.get(`/brawlstars/${type}/${cleanTag}`);
       setSearchResult(response.data);
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Search failed';

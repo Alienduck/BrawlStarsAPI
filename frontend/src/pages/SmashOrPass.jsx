@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
+import api from '../services/axios';
 import './SmashOrPass.css';
-import axios from 'axios';
-
-const API_URL = process.env.VITE_API_URL || 'http://localhost:5000';
-
 
 export default function SmashOrPass() {
     const [brawlers, setBrawlers] = useState([]);
@@ -22,7 +19,7 @@ export default function SmashOrPass() {
 
     const fetchBrawlers = async () => {
         try {
-            const response = await axios.get(`${API_URL}/brawlstars/brawlers`);
+            const response = await api.get(`/brawlstars/brawlers`);
             // Shuffle the brawlers array for random order
             const shuffled = response.data.items.sort(() => Math.random() - 0.5);
             setBrawlers(shuffled);
